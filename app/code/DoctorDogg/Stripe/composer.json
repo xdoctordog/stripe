@@ -1,0 +1,38 @@
+{
+    "name": "doctor-dogg/stripe",
+    "description": "Stripe payment extension",
+    "type": "magento2-module",
+    "license": [
+    ],
+    "authors": [
+        {
+            "name": "Morozov Dmitriy (MAROZAU DZMITRY)",
+            "email": "castor_troy@tut.by",
+            "homepage": "https://vk.com/doctordogg",
+            "role": "Senior Magento 2 Developer"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "version": "1.0.0",
+    "require": {
+        "php": "~8.2.2",
+        "magento/framework": "103.0.*",
+        "stripe/module-payments": "*",
+        "stripe/stripe-php": "*",
+        "doctor-dogg/log-message-preparer":  "*",
+        "doctor-dogg/base":  "*"
+    },
+    "suggest": {
+        "php": "~8.2.2"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "DoctorDogg\\Stripe\\": ""
+        }
+    }
+}

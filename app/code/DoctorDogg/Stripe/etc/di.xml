@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--
+        @TODO: Does not used rite now.
+            Can be useful if we can not send necessary headers from the Stripe service to our site.
+            I see only the way to add plugin for processing it right now.
+    <type name="Magento\Framework\App\Bootstrap">
+        <plugin name="DoctorDogg\Stripe\Plugin\Magento\Framework\App\Bootstrap\Run\Before"
+                type="DoctorDogg\Stripe\Plugin\Magento\Framework\App\Bootstrap\Run\Before" sortOrder="0" />
+    </type>
+    <!-->
+
+    <!--
+        Proxy for processor of the webhook.
+    <!-->
+    <type name="DoctorDogg\Stripe\Model\Webhook\Handler">
+        <arguments>
+            <argument name="invoicePaidHandler" xsi:type="object">DoctorDogg\Stripe\Model\Webhook\Handler\Invoice\Paid\Proxy</argument>
+            <argument name="checkoutSessionCompletedHandler" xsi:type="object">DoctorDogg\Stripe\Model\Webhook\Handler\Checkout\Session\Completed\Proxy</argument>
+        </arguments>
+    </type>
+    <preference for="DoctorDogg\Stripe\Api\Data\CartInterface" type="DoctorDogg\Stripe\Model\Quote" />
+
+    <!--
+        Read the admin config settings from the DB.
+    <!-->
+    <preference
+        for="\DoctorDogg\Stripe\Api\ConfigReaderInterface"
+        type="\DoctorDogg\Stripe\Model\Config\Reader\ConfigReader"
+    />
+
+    <!--
+        Management for Stripe Product.
+    <!-->
+    <preference
+        for="\DoctorDogg\Stripe\Model\Stripe\Product\ManagementInterface"
+        type="\DoctorDogg\Stripe\Model\Stripe\Product\Management"
+    />
+
+    <!--
+
+    <preference
+        for=""
+        type=""
+    />
+    <!-->
+
+    <!--
+        Model action for create checkout session for customer.
+    <!-->
+    <preference
+        for="\DoctorDogg\Stripe\Api\GetSessionForCustomerAndLineItemsInterface"
+        type="\DoctorDogg\Stripe\Model\Stripe\Session\GetSessionForCustomerAndLineItems"
+    />
+
+    <!--
+        Management for Stripe Customer.
+    <!-->
+    <preference
+        for="\DoctorDogg\Stripe\Model\Stripe\Customer\ManagementInterface"
+        type="\DoctorDogg\Stripe\Model\Stripe\Customer\Management"
+    />
+
+    <!--
+        Processor to get the payment link to the Stripe form.
+    <!-->
+    <preference
+        for="\DoctorDogg\Stripe\Model\Processor\GetCheckoutSessionPaymentUrlInterface"
+        type="\DoctorDogg\Stripe\Model\Processor\GetCheckoutSessionPaymentUrl"
+    />
+
+    <!--
+        Processor to get the payment link to the Stripe form.
+    <!-->
+    <preference
+        for="\DoctorDogg\Stripe\Model\Processor\GetStripePaidResultInterface"
+        type="\DoctorDogg\Stripe\Model\Processor\GetStripePaidResult"
+    />
+
+</config>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <doctordogg_stripe_payment>
+                <active>1</active>
+                <model>DoctorDogg\Stripe\Model\Payment\Stripe</model>
+                <title>Stripe Payment Method</title>
+                <order_status>pending</order_status>
+                <allowspecific>0</allowspecific>
+            </doctordogg_stripe_payment>
+        </payment>
+        <doctordogg_stripe_settings>
+            <stripe_settings>
+                <!--
+                    Stripe API key.
+                <!-->
+                <stripe_api_key>sk_test_51NrTuuH2QR7AyPBtIabmM1nGiWVixzqjyaLslCUL0Pq9pOwT2LVv9k87S3e9L3MnwnWzZLgT8Shnx4K7bU7POHTD00X7cZcgd2</stripe_api_key>
+            </stripe_settings>
+        </doctordogg_stripe_settings>
+    </default>
+</config>

@@ -1,0 +1,59 @@
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+
+    <div class="payment-method-title field choice">
+        <input type="radio" name="payment[method]" class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label">
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+
+                <!--
+                    Redirect to Stripe Form For Payment.
+                <!-->
+                <button class="action primary checkout" type="submit"
+                        data-bind=" click: getAndShowStripePopUp, attr: {title: $t('Open Stripe Form (pay for subscription)')}, css: {disabled: !isPlaceOrderActionAllowed()}, enable: (getCode() == isChecked()) "
+                        disabled >
+                    <span data-bind="i18n: 'Open Stripe Form (pay for subscription)'"></span>
+                </button>
+
+                <br />
+                <!--
+                    Try to auto charge from client card.
+                <!-->
+                <button class="action primary checkout" type="submit"
+                        data-bind=" click: tryAutoChargeClientCard, attr: {title: $t('Auto Charge (pay for invoice)')}, css: {disabled: !isPlaceOrderActionAllowed()}, enable: (getCode() == isChecked()) "
+                        disabled >
+                    <span data-bind="i18n: 'Auto Charge (pay for invoice)'"></span>
+                </button>
+
+                <!--
+                    @TODO: For developing purposes.
+                    Trigger webhook handler.
+                <br />
+                <button class="action primary checkout" type="submit"
+                        data-bind=" click: triggerWebhookHandler, attr: {title: $t('Trigger webhook handler')}, css: {disabled: !isPlaceOrderActionAllowed()}, enable: (getCode() == isChecked()) "
+                        disabled >
+                    <span data-bind="i18n: 'Trigger webhook handler'"></span>
+                </button>
+                <!-->
+            </div>
+        </div>
+    </div>
+</div>
